@@ -4,7 +4,7 @@ A simple full-stack paper trading application for single-user deployment.
 
 ## Technology Stack
 
-- **Backend:** Java 17, Spring Boot 3, Spring Security (JWT), Spring Data JDBC, MySQL
+- **Backend:** Java 17, Spring Boot 3, Spring Data JDBC, MySQL
 - **Frontend:** React 18, Vite, Bootstrap 5, Chart.js
 
 ## Quick Start (Local Development)
