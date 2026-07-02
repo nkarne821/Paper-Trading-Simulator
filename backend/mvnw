@@ -1,0 +1,43 @@
+#!/bin/sh
+# ----------------------------------------------------------------------------
+# Maven Start Up Batch script
+# ----------------------------------------------------------------------------
+
+# OS specific support
+native_path() { printf %s\n "$1"; }
+case "$(uname)" in
+    CYGWIN*|MINGW*|MSYS*)
+        [ -z "${JAVA_HOME-}" ] || JAVA_HOME="$(cygpath --unix "$JAVA_HOME")"
+        native_path() { cygpath --path --windows "$1"; }
+    ;;
+esac
+
+# Find java
+if [ -n "${JAVA_HOME-}" ] ; then
+    if [ -x "$JAVA_HOME/jre/sh/java" ] ; then
+        JAVA_CMD="$JAVA_HOME/jre/sh/java"
+    else
+        JAVA_CMD="$JAVA_HOME/bin/java"
+    fi
+    if [ ! -x "$JAVA_CMD" ] ; then
+        die "ERROR: JAVA_HOME is set to an invalid directory: $JAVA_HOME"
+    fi
+else
+    JAVA_CMD="java"
+    which java >/dev/null 2>&1 || die "ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH."
+fi
+
+# Download Maven if not present
+MAVEN_HOME="$HOME/.m2/wrapper/dists/apache-maven-3.9.6-bin/"
+MAVEN_BIN="$MAVEN_HOME/apache-maven-3.9.6/bin/mvn"
+
+if [ ! -f "$MAVEN_BIN" ]; then
+    echo "Downloading Maven 3.9.6..."
+    mkdir -p "$MAVEN_HOME"
+    curl -L -o "$MAVEN_HOME/maven.zip" "https://dlcdn.apache.org/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.zip"
+    unzip -q "$MAVEN_HOME/maven.zip" -d "$MAVEN_HOME"
+    mv "$MAVEN_HOME/apache-maven-3.9.6" "$MAVEN_HOME/"
+    rm "$MAVEN_HOME/maven.zip"
+fi
+
+exec "$MAVEN_BIN" "$@"
